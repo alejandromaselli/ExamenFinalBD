@@ -4,9 +4,11 @@
 
 ### Boston Red Sox
 
-- Esto es viñeta 1.
-  - Viñeta 1.1 con sangria.
-  - Viñeta N  
+```
+Posiciones
+  - Lanzador (Pitcher)
+  - Receptor (Catcher)
+```
 
 Primero Filtrar los equipos para poder identificar el deseado
 
