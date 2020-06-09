@@ -28,4 +28,16 @@ SELECT teamID FROM `teams` where name LIKE 'Boston%' and name LIKE '%Sox';
 ```
 Podemos ver que el teamID es **BOS**
 
-Veremos la posició del Bateador que sería el 
+Usamos la tabla `Appereances` como la palabra lo indica son "Apariciones" y esta tabla nos dice la posición en la que juega el jugador
+
+```SQL
+SELECT * FROM Appereances;
+```
+Haremos un `**JOIN**` con la tabla people para obtener información del jugador cono su "Nombre Dado" o `**Name Given**`
+
+```SQL
+SELECT * FROM AwardsPlayers apl
+INNER JOIN people p
+on apl.playerID = p.playerID
+where
+```
