@@ -22,8 +22,7 @@ SELECT * FROM `teams` where name LIKE 'Boston%' and name LIKE '%Sox';
 SELECT teamID FROM `teams` where name LIKE 'Boston%' and name LIKE '%Sox';
 ```
 
-```java
-		
-		//bloque de codigo...
-		
+```SQL
+SELECT * FROM `teams` where name LIKE 'Boston%' and name LIKE '%Sox';
+SELECT teamID FROM `teams` where name LIKE 'Boston%' and name LIKE '%Sox';
 ```
