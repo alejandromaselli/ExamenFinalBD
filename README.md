@@ -33,7 +33,7 @@ Usamos la tabla `Appereances` como la palabra lo indica son "Apariciones" y esta
 ```SQL
 SELECT * FROM Appereances;
 ```
-Haremos un `**JOIN**` con la tabla people para obtener información del jugador cono su "Nombre Dado" o `**Name Given**`
+Haremos un ` **JOIN** ` con la tabla people para obtener información del jugador cono su "Nombre Dado" o ` **Name Given** `
 
 ```SQL
 SELECT * FROM AwardsPlayers apl
