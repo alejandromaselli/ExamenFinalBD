@@ -28,7 +28,7 @@ SELECT teamID FROM `teams` where name LIKE 'Boston%' and name LIKE '%Sox';
 ```
 Podemos ver que el teamID es **BOS**
 
-Usamos la tabla `Appereances` como la palabra lo indica son "Apariciones" y esta tabla nos dice la posición en la que juega el jugador
+Usamos la tabla `Appereances` como la palabra lo indica son "Apariciones" y esta tabla nos dice la posición en la que juega el jugador en diferentes posiciones con los siguientes campos:
 
 | G_p | G_c | G_1b | G_2b | G_3b | G_ss | G_lf | G_cf | G_rf | G_of|           
 | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |		
@@ -44,7 +44,7 @@ INNER JOIN people p
 on a.playerID = p.playerID
 ```
 
-Luego filtraremos los jugadores y añadiremos la cláusula `WHERE` y como condicional tiene que resultar todos los registros relacionados a nuestro equipo  con el `teamID`
+Luego filtraremos los jugadores y añadiremos la cláusula `WHERE` y como condicional tiene que resultar todos los registros relacionados a nuestro equipo  con el `teamID = 'BOS'`
 
 ```SQL
 SELECT * FROM appearances a
@@ -52,3 +52,5 @@ INNER JOIN people p
 on a.playerID = p.playerID
 WHERE teamID = 'BOS'
 ```
+
+Cabe destacar que para ello debemos irnos a la tabla `AwardsPlayer` ya que esta registra los premios que han ganado los mejores jugadores a lo largo de 
