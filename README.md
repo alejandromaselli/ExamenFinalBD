@@ -30,6 +30,10 @@ Podemos ver que el teamID es **BOS**
 
 Usamos la tabla `Appereances` como la palabra lo indica son "Apariciones" y esta tabla nos dice la posición en la que juega el jugador
 
+| TITULO1| TITULO2| Titulo3|
+| ----- | ---- |
+| CONTENIDO COLUMNA 1 | CONTENIDO COLUMNA 2 |
+
 ```SQL
 SELECT * FROM Appereances;
 ```
