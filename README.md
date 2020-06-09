@@ -36,7 +36,16 @@ SELECT * FROM Appereances;
 Haremos un **JOIN** con la tabla people para obtener información del jugador cono su "Nombre Dado" o **Name Given**
 
 ```SQL
-FROM appearances a
+SELECT * FROM appearances a
 INNER JOIN people p
 on a.playerID = p.playerID
+```
+
+Luego filtraremos los jugadores y añadiremos la cláusula `WHERE` y como condicional tiene que resultar todos los registros relacionados a nuestro equipo  con el `teamID`
+
+```SQL
+SELECT * FROM appearances a
+INNER JOIN people p
+on a.playerID = p.playerID
+WHERE teamID = 'BOS'
 ```
