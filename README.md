@@ -33,6 +33,7 @@ Usamos la tabla `Appereances` como la palabra lo indica son "Apariciones" y esta
 | G_p | G_c | G_1b | G_2b | G_3b | G_ss | G_lf | G_cf | G_rf | G_of|           
 | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |		
 |Games as pitcher|Games as catcher|Games as firstbaseman|Games as secondbaseman|Games as thirdbaseman|Games as shortstop|Games as leftfielder|Games as centerfielder|Games as right fielder|Games as outfielder|
+
 ```SQL
 SELECT * FROM Appereances;
 ```
@@ -73,7 +74,7 @@ WHERE a.teamID = 'BOS'
 Añadimos un **JOIN** con la tabla `Batting` donde tenemos estos campos:
 
 | playerID| yearID| stint| teamID| lgID| G| AB| R| H| 2B| 3B| HR| RBI| SB| CS| BB| SO| IBB| HBP| SH| SF| GIDP|
-| ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+| ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
 | Player ID code | Year| player's stint (order of appearances within a season) | Team | League | Games | At Bats | Runs | Hits | Doubles | Triples | Homeruns | Runs Batted In | Stolen Bases | Caught Stealing | Base on Balls | Strikeouts | Intentional walks | Hit by pitch | Sacrifice hits | Sacrifice flies | Grounded into double plays |
 
 **RESULTADO DEL JOIN:**
