@@ -4,9 +4,16 @@
 
 ### Boston Red Sox
 
-Posiciones
+Posiciones:
 - Lanzador (Pitcher)
 - Receptor (Catcher)
+- Primera base (First baseman)
+- Segunda base (Second baseman)
+- Tercera base (Third baseman)
+- Campocorto o parador en corto (Short stop)
+- Jardinero izquierdo (Left fielder)
+- Jardinero central (Center fielder)
+- Jardinero derecho (Right fielder)
 
 Primero Filtrar los equipos para poder identificar el deseado
 
