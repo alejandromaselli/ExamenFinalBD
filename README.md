@@ -30,9 +30,9 @@ Podemos ver que el teamID es **BOS**
 
 Usamos la tabla `Appereances` como la palabra lo indica son "Apariciones" y esta tabla nos dice la posición en la que juega el jugador
 
-| TITULO1| TITULO2| Titulo3
-| ----- | ---- | ---- |
-| CONTENIDO COLUMNA 1 | CONTENIDO COLUMNA 2 | columna 3|
+| G_p            | G_c            | G_1b           | G_2b           | G_3b           | G_ss           | G_lf           | G_cf           | G_rf           | G_of           
+| ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |		
+|Games as pitcher||Games as catcher||Games as firstbaseman||Games as secondbaseman||Games as thirdbaseman||Games as shortstop||Games as leftfielder||Games as centerfielder||Games as right fielder||Games as outfielder|
 
 ```SQL
 SELECT * FROM Appereances;
