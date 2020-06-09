@@ -77,7 +77,7 @@ Añadimos un **JOIN** con la tabla `Batting` donde tenemos estos campos:
 | ---- | ---- |
 | Player ID code | Year|
 
-**RESULTADO DEL JOIN:**
+**JOIN *resultante:***
 
 ```SQL
 SELECT * FROM
@@ -119,3 +119,5 @@ INNER JOIN batting b
 ON ap.playerID = b.playerID
 WHERE a.teamID = 'BOS'
 ```
+
+Como el resultado del **`JOIN`**
