@@ -44,7 +44,7 @@ INNER JOIN people p
 on a.playerID = p.playerID
 ```
 
-Luego filtraremos los jugadores y añadiremos la cláusula `WHERE` y como condicional tiene que resultar todos los registros relacionados a nuestro equipo  con el `teamID = 'BOS'`
+Luego filtraremos los jugadores y añadiremos la cláusula `WHERE` y como condicional tiene que resultar todos los registros relacionados a nuestro equipo  con el `teamID = 'BOS'` y le añadimos alias a las dos tablas para poder manipularlas mejor enel futuro.
 
 ```SQL
 SELECT * FROM appearances a
@@ -53,4 +53,67 @@ on a.playerID = p.playerID
 WHERE teamID = 'BOS'
 ```
 
-Cabe destacar que para ello debemos irnos a la tabla `AwardsPlayer` ya que esta registra los premios que han ganado los mejores jugadores a lo largo de 
+Cabe destacar que para ello debemos irnos a la tabla `AwardsPlayer` ya que esta registra los premios que han ganado los mejores jugadores a lo largo de la historia
+
+```SQL
+SELECT * FROM AwardsPlayer;
+```
+
+Luego con el **JOIN** anterior  añadimos un nuevo **JOIN** con la tabla `AwardsPlayer` le añadimos su respectivo alias y entonces obtenemos los jugadores con premio de nuestro equipo.
+
+```SQL
+SELECT * FROM appearances a
+INNER JOIN people p
+on a.playerID = p.playerID
+INNER JOIN awardsplayers ap
+on p.playerID = ap.playerID
+WHERE a.teamID = 'BOS'
+```
+
+Añadimos un **JOIN** con la tabla `Batting` donde tenemos estos campos:
+| playerID | yearID | stint | teamID | lgID | G | AB | R | H | 2B | 3B | HR | RBI | SB | CS | BB | SO | IBB | HBP | SH | SF | GIDP |
+| ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+| Player ID code| Year| player's stint (order of appearances within a season)| Team| League| Games| At Bats| Runs| Hits| Doubles| Triples| Homeruns| Runs Batted In| Stolen Bases| Caught Stealing| Base on Balls| Strikeouts| Intentional walks| Hit by pitch| Sacrifice hits| Sacrifice flies| Grounded into double plays       
+
+**RESULTADO DEL JOIN:**
+
+```SQL
+SELECT * FROM
+FROM appearances a
+INNER JOIN people p
+on a.playerID = p.playerID
+inner join awardsplayers ap
+on p.playerID = ap.playerID
+INNER JOIN batting b
+ON ap.playerID = b.playerID
+WHERE a.teamID = 'BOS'
+```
+
+Luego filtramos los tres **JOINS** completos teniendo en cuenta el `Name Given`,`pitcher`, `catcher`, `firstbaseman`, `secondbaseman`, `thirdbaseman`, `shortstop`, `leftfielder`, `centerfielder`, `right_fielder`, `outfielder`, `designated_hitter`, `pinch_hitter`, `pinch_runner`, `Home Runs`.
+
+```SQL
+SELECT p.nameGiven, 
+ap.awardID, 
+a.G_p  as pitcher,
+a.G_c  as catcher,
+a.G_1b as firstbaseman,
+a.G_2b as secondbaseman,
+a.G_3b as thirdbaseman,
+a.G_ss as shortstop,
+a.G_lf as leftfielder,
+a.G_cf as centerfielder,
+a.G_rf as right_fielder,
+a.G_of as outfielder,
+a.G_dh as designated_hitter,
+a.G_ph as pinch_hitter,
+a.G_pr as pinch_runner,
+b.HR
+FROM appearances a
+INNER JOIN people p
+on a.playerID = p.playerID
+inner join awardsplayers ap
+on p.playerID = ap.playerID
+INNER JOIN batting b
+ON ap.playerID = b.playerID
+WHERE a.teamID = 'BOS'
+```
