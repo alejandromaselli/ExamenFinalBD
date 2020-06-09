@@ -4,11 +4,9 @@
 
 ### Boston Red Sox
 
-```
 Posiciones
 - Lanzador (Pitcher)
 - Receptor (Catcher)
-```
 
 Primero Filtrar los equipos para poder identificar el deseado
 
