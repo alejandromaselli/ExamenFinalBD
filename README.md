@@ -93,49 +93,6 @@ WHERE a.teamID = 'BOS'
 
 Luego filtramos los tres **JOINS** completos teniendo en cuenta el `Name Given`,`pitcher`, `catcher`, `firstbaseman`, `secondbaseman`, `thirdbaseman`, `shortstop`, `leftfielder`, `centerfielder`, `right_fielder`, `outfielder`, `designated_hitter`, `pinch_hitter`, `pinch_runner`, `Home Runs`.
 
-```SQL
-select *  FROM
-(
-	select *  FROM
-	(
-		select *  FROM
-		(
-
-			SELECT 
-			p.nameGiven as Name_Given,
-            ap.yearID as Year, 
-			ap.awardID, 
-			a.G_p  as pitcher,
-			a.G_defense as Defense,
-			AVG(f.PO) as putouts_Average,
-			AVG(f.A) as Assists_Average,
-			AVG(f.E) as errores_Average
-			FROM appearances a
-			INNER JOIN people p
-			on a.playerID = p.playerID
-			inner join awardsplayers ap
-			on p.playerID = ap.playerID
-			INNER JOIN batting b
-			ON ap.playerID = b.playerID
-			INNER JOIN fielding f
-			on p.playerID = f.playerID
-			WHERE a.teamID = 'BOS' AND
-			a.G_p <> 0
-			GROUP BY p.nameGiven
-			ORDER BY a.a.G_p DESC
-			LIMIT 20
-			) as t1
-		ORDER BY errores_Average DESC
-		LIMIT 10
-		) as t2
-	ORDER BY putouts_Average DESC
-	LIMIT 5
-	) as t3
-ORDER BY Assists_Average DESC
-LIMIT 3
-```
-
-
 ### 1. Catcher -> a.G_c
 
 ```SQL
@@ -147,8 +104,8 @@ select *  FROM
 		(
 			SELECT 
 			p.nameGiven as Name_Given,
-            ap.yearID as Year, 
-			ap.awardID, 
+			ap.yearID as Year, 
+			ap.awardID,  
 			a.G_c as catcher,
 			a.G_defense as Defense,
 			AVG(f.PO) as putouts_Average,
@@ -191,8 +148,8 @@ select *  FROM
 		(
 			SELECT 
 			p.nameGiven as Name_Given,
-            ap.yearID as Year, 
-			ap.awardID, 
+			ap.yearID as Year, 
+			ap.awardID,  
 			a.G_1b as firstbaseman,
 			a.G_defense as Defense,
 			AVG(f.PO) as putouts_Average,
@@ -235,8 +192,8 @@ select *  FROM
 		(
 			SELECT 
 			p.nameGiven as Name_Given,
-            ap.yearID as Year, 
-			ap.awardID, 
+			ap.yearID as Year, 
+			ap.awardID,  
 			a.G_2b as secondbaseman,
 			a.G_defense as Defense,
 			AVG(f.PO) as putouts_Average,
@@ -279,8 +236,8 @@ select *  FROM
 		(
 			SELECT 
 			p.nameGiven as Name_Given,
-            ap.yearID as Year, 
-			ap.awardID, 
+			ap.yearID as Year, 
+			ap.awardID,  
 			a.G_3b as thirdbaseman,
 			a.G_defense as Defense,
 			AVG(f.PO) as putouts_Average,
@@ -323,8 +280,8 @@ select *  FROM
 		(
 			SELECT 
 			p.nameGiven as Name_Given,
-            ap.yearID as Year, 
-			ap.awardID, 
+			ap.yearID as Year, 
+			ap.awardID,  
 			a.G_ss as shortstop,
 			a.G_defense as Defense,
 			AVG(f.PO) as putouts_Average,
@@ -367,8 +324,8 @@ select *  FROM
 		(
 			SELECT 
 			p.nameGiven as Name_Given,
-            ap.yearID as Year, 
-			ap.awardID, 
+			ap.yearID as Year, 
+			ap.awardID,  
 			a.G_lf as leftfielder,
 			a.G_defense as Defense,
 			AVG(f.PO) as putouts_Average,
@@ -411,8 +368,8 @@ select *  FROM
 		(
 			SELECT 
 			p.nameGiven as Name_Given,
-            ap.yearID as Year, 
-			ap.awardID, 
+			ap.yearID as Year, 
+			ap.awardID,  
 			a.G_cf as centerfielder,
 			a.G_defense as Defense,
 			AVG(f.PO) as putouts_Average,
@@ -455,8 +412,8 @@ select *  FROM
 		(
 			SELECT 
 			p.nameGiven as Name_Given,
-            ap.yearID as Year, 
-			ap.awardID, 
+			ap.yearID as Year, 
+			ap.awardID,  
 			a.G_rf as rightfielder,
 			a.G_defense as Defense,
 			AVG(f.PO) as putouts_Average,
@@ -499,7 +456,7 @@ select *  FROM
 		(
 			SELECT 
 			p.nameGiven as Name_Given,
-            ap.yearID as Year, 
+			ap.yearID as Year, 
 			ap.awardID, 
 			a.G_of as outfielder,
 			a.G_defense as Defense,
