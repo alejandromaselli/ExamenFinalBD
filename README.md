@@ -121,5 +121,6 @@ WHERE a.teamID = 'BOS'
 ```
 
 Como el resultado del **`JOIN`** filtrado
-[Tabla](https://github.com/alejandromaselli/ExamenFinalBD/blob/master/images/resul1.PNG)
+
+![Tabla](https://github.com/alejandromaselli/ExamenFinalBD/blob/master/images/resul1.PNG)
 
