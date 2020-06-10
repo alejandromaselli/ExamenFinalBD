@@ -175,7 +175,7 @@ WHERE a.teamID = 'BOS' AND
 a.G_p <> 0
 ```
 
-#### Catcher -> a.G_c
+### Catcher -> a.G_c
 
 ```SQL
 SELECT p.nameGiven, 
@@ -193,7 +193,7 @@ WHERE a.teamID = 'BOS' AND
 a.G_c <> 0
 ```
 
-#### FirstBaseMan -> a.G_1b
+### First Base Man -> a.G_1b
 
 ```SQL
 SELECT p.nameGiven, 
@@ -211,5 +211,147 @@ WHERE a.teamID = 'BOS' AND
 a.G_1b <> 0
 ```
 
-#### SecondBaseMan
+### Second Base Man -> a.G_2b
+
+```SQL
+SELECT p.nameGiven, 
+ap.awardID, 
+a.G_2b as secondbaseman,
+b.HR
+FROM appearances a
+INNER JOIN people p
+on a.playerID = p.playerID
+inner join awardsplayers ap
+on p.playerID = ap.playerID
+INNER JOIN batting b
+ON ap.playerID = b.playerID
+WHERE a.teamID = 'BOS' AND
+a.G_2b <> 0
+```
+
+### Third Base Man
+
+```SQL
+SELECT p.nameGiven, 
+ap.awardID, 
+a.G_3b as thirdbaseman,
+b.HR
+FROM appearances a
+INNER JOIN people p
+on a.playerID = p.playerID
+inner join awardsplayers ap
+on p.playerID = ap.playerID
+INNER JOIN batting b
+ON ap.playerID = b.playerID
+WHERE a.teamID = 'BOS' AND
+a.G_3b <> 0
+```
+
+### Short Stop -> a.G_ss
+
+```SQL
+SELECT p.nameGiven, 
+ap.awardID, 
+a.G_ss as shortstop,
+b.HR
+FROM appearances a
+INNER JOIN people p
+on a.playerID = p.playerID
+inner join awardsplayers ap
+on p.playerID = ap.playerID
+INNER JOIN batting b
+ON ap.playerID = b.playerID
+WHERE a.teamID = 'BOS' AND
+a.G_ss <> 0
+```
+
+### Left Fielder -> Left Fielder -> a.G_lf
+
+```SQL
+SELECT p.nameGiven, 
+ap.awardID, 
+a.G_lf as leftfielder,
+b.HR
+FROM appearances a
+INNER JOIN people p
+on a.playerID = p.playerID
+inner join awardsplayers ap
+on p.playerID = ap.playerID
+INNER JOIN batting b
+ON ap.playerID = b.playerID
+WHERE a.teamID = 'BOS' AND
+a.G_lf <> 0
+```
+
+### Center Fielder -> a.G_cf
+
+```SQL
+SELECT p.nameGiven, 
+ap.awardID, 
+a.G_cf as centerfielder,
+b.HR
+FROM appearances a
+INNER JOIN people p
+on a.playerID = p.playerID
+inner join awardsplayers ap
+on p.playerID = ap.playerID
+INNER JOIN batting b
+ON ap.playerID = b.playerID
+WHERE a.teamID = 'BOS' AND
+a.G_cf <> 0
+```
+
+### Right Fielder -> a.G_rf
+
+```SQL
+SELECT p.nameGiven, 
+ap.awardID, 
+a.G_rf as rightfielder,
+b.HR
+FROM appearances a
+INNER JOIN people p
+on a.playerID = p.playerID
+inner join awardsplayers ap
+on p.playerID = ap.playerID
+INNER JOIN batting b
+ON ap.playerID = b.playerID
+WHERE a.teamID = 'BOS' AND
+a.G_rf <> 0
+```
+
+### Out Fielder -> a.G_of
+
+```SQL
+SELECT p.nameGiven, 
+ap.awardID, 
+a.G_of as outfielder,
+b.HR
+FROM appearances a
+INNER JOIN people p
+on a.playerID = p.playerID
+inner join awardsplayers ap
+on p.playerID = ap.playerID
+INNER JOIN batting b
+ON ap.playerID = b.playerID
+WHERE a.teamID = 'BOS' AND
+a.G_of <> 0
+```
+
+### Out Fielder -> a.G_of
+
+```SQL
+SELECT p.nameGiven, 
+ap.awardID, 
+a.G_of as outfielder,
+b.HR
+FROM appearances a
+INNER JOIN people p
+on a.playerID = p.playerID
+inner join awardsplayers ap
+on p.playerID = ap.playerID
+INNER JOIN batting b
+ON ap.playerID = b.playerID
+WHERE a.teamID = 'BOS' AND
+a.G_of <> 0
+```
 
