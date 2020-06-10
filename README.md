@@ -37,12 +37,12 @@ Usamos la tabla `Appereances` como la palabra lo indica son "Apariciones" y esta
 ```SQL
 SELECT * FROM Appereances;
 ```
-Haremos un **JOIN** con la tabla people para obtener información del jugador cono su "Nombre Dado" o **Name Given**
+Haremos un **`JOIN`** con la tabla people para obtener información del jugador cono su "Nombre Dado" o **Name Given**
 
 ```SQL
 SELECT * FROM appearances a
 INNER JOIN people p
-on a.playerID = p.playerID
+ON a.playerID = p.playerID
 ```
 
 Luego filtraremos los jugadores y añadiremos la cláusula `WHERE` y como condicional tiene que resultar todos los registros relacionados a nuestro equipo  con el `teamID = 'BOS'` y le añadimos alias a las dos tablas para poder manipularlas mejor enel futuro.
@@ -50,7 +50,7 @@ Luego filtraremos los jugadores y añadiremos la cláusula `WHERE` y como condic
 ```SQL
 SELECT * FROM appearances a
 INNER JOIN people p
-on a.playerID = p.playerID
+ON a.playerID = p.playerID
 WHERE teamID = 'BOS'
 ```
 
@@ -60,7 +60,7 @@ Cabe destacar que para ello debemos irnos a la tabla `AwardsPlayer` ya que esta 
 SELECT * FROM AwardsPlayer;
 ```
 
-Luego con el **JOIN** anterior  añadimos un nuevo **JOIN** con la tabla `AwardsPlayer` le añadimos su respectivo alias y entonces obtenemos los jugadores con premio de nuestro equipo.
+Luego con el **`JOIN`** anterior  añadimos un nuevo **JOIN** con la tabla `AwardsPlayer` le añadimos su respectivo alias y entonces obtenemos los jugadores con premio de nuestro equipo.
 
 ```SQL
 SELECT * FROM appearances a
@@ -71,7 +71,7 @@ on p.playerID = ap.playerID
 WHERE a.teamID = 'BOS'
 ```
 
-Añadimos un **JOIN** con la tabla `Batting` donde tenemos estos campos:
+Añadimos un **`JOIN`** con la tabla `Batting` donde tenemos estos campos:
 
 | playerID| yearID|
 | ---- | ---- |
@@ -83,9 +83,9 @@ Añadimos un **JOIN** con la tabla `Batting` donde tenemos estos campos:
 SELECT * FROM
 FROM appearances a
 INNER JOIN people p
-on a.playerID = p.playerID
-inner join awardsplayers ap
-on p.playerID = ap.playerID
+ON a.playerID = p.playerID
+INNER join awardsplayers ap
+ON p.playerID = ap.playerID
 INNER JOIN batting b
 ON ap.playerID = b.playerID
 WHERE a.teamID = 'BOS'
@@ -96,23 +96,23 @@ Luego filtramos los tres **JOINS** completos teniendo en cuenta el `Name Given`,
 ```SQL
 SELECT p.nameGiven, 
 ap.awardID, 
-a.G_p  as pitcher,
-a.G_c  as catcher,
-a.G_1b as firstbaseman,
-a.G_2b as secondbaseman,
-a.G_3b as thirdbaseman,
-a.G_ss as shortstop,
-a.G_lf as leftfielder,
-a.G_cf as centerfielder,
-a.G_rf as right_fielder,
-a.G_of as outfielder,
-a.G_dh as designated_hitter,
-a.G_ph as pinch_hitter,
-a.G_pr as pinch_runner,
+a.G_p  AS pitcher,
+a.G_c  AS catcher,
+a.G_1b AS firstbaseman,
+a.G_2b AS secondbaseman,
+a.G_3b AS thirdbaseman,
+a.G_ss AS shortstop,
+a.G_lf AS leftfielder,
+a.G_cf AS centerfielder,
+a.G_rf AS right_fielder,
+a.G_of AS outfielder,
+a.G_dh AS designated_hitter,
+a.G_ph AS pinch_hitter,
+a.G_pr AS pinch_runner,
 b.HR
 FROM appearances a
 INNER JOIN people p
-on a.playerID = p.playerID
+ON a.playerID = p.playerID
 inner join awardsplayers ap
 on p.playerID = ap.playerID
 INNER JOIN batting b
@@ -120,4 +120,6 @@ ON ap.playerID = b.playerID
 WHERE a.teamID = 'BOS'
 ```
 
-Como el resultado del **`JOIN`**
+Como el resultado del **`JOIN`** filtrado
+[Tabla](https://github.com/alejandromaselli/ExamenFinalBD/blob/master/images/resul1.PNG)
+
