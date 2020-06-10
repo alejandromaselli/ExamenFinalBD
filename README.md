@@ -1,4 +1,4 @@
-# Examen Final Bases de Datos I
+# Examen Final Bases de Datos I - José Alejandro Maselli García 1800240
 
 ## Equipo a evaluar:
 
@@ -93,42 +93,6 @@ WHERE a.teamID = 'BOS'
 
 Luego filtramos los tres **JOINS** completos teniendo en cuenta el `Name Given`,`pitcher`, `catcher`, `firstbaseman`, `secondbaseman`, `thirdbaseman`, `shortstop`, `leftfielder`, `centerfielder`, `right_fielder`, `outfielder`, `designated_hitter`, `pinch_hitter`, `pinch_runner`, `Home Runs`.
 
-#### Pitcher -> a.G_p
-
-```SQL
-
-SELECT p.nameGiven, 
-ap.awardID, 
-a.G_p  as pitcher,
-a.G_c  as catcher,
-a.G_1b as firstbaseman,
-a.G_2b as secondbaseman,
-a.G_3b as thirdbaseman,
-a.G_ss as shortstop,
-a.G_lf as leftfielder,
-a.G_cf as centerfielder,
-a.G_rf as right_fielder,
-a.G_of as outfielder,
-a.G_dh as designated_hitter,
-a.G_ph as pinch_hitter,
-a.G_pr as pinch_runner,
-b.HR,
-f.PO
-FROM appearances a
-INNER JOIN people p
-on a.playerID = p.playerID
-inner join awardsplayers ap
-on p.playerID = ap.playerID
-INNER JOIN batting b
-ON ap.playerID = b.playerID
-WHERE a.teamID = 'BOS' AND
-a.G_p <> 0
-GROUP BY p.nameGiven
-			
-```
-
-Vemos que sigue habiendo celdas con el numero `0` por lo que la *Query* la ajustaremos a cada posición
-
 ```SQL
 select *  FROM
 (
@@ -137,7 +101,9 @@ select *  FROM
 		select *  FROM
 		(
 
-			SELECT p.nameGiven, 
+			SELECT 
+			p.nameGiven as Name_Given,
+            ap.yearID as Year, 
 			ap.awardID, 
 			a.G_p  as pitcher,
 			a.G_defense as Defense,
@@ -156,21 +122,21 @@ select *  FROM
 			WHERE a.teamID = 'BOS' AND
 			a.G_p <> 0
 			GROUP BY p.nameGiven
-			ORDER BY a.G_cf DESC
+			ORDER BY a.a.G_p DESC
 			LIMIT 20
 			) as t1
-		ORDER BY errores_Average
+		ORDER BY errores_Average DESC
 		LIMIT 10
 		) as t2
-	ORDER BY putouts_Average
+	ORDER BY putouts_Average DESC
 	LIMIT 5
 	) as t3
-ORDER BY Assists_Average
+ORDER BY Assists_Average DESC
 LIMIT 3
 ```
 
 
-### Catcher -> a.G_c
+### 1. Catcher -> a.G_c
 
 ```SQL
 select *  FROM
@@ -179,10 +145,11 @@ select *  FROM
 	(
 		select *  FROM
 		(
-
-			SELECT p.nameGiven, 
+			SELECT 
+			p.nameGiven as Name_Given,
+            ap.yearID as Year, 
 			ap.awardID, 
-			a.G_c  as catcher,
+			a.G_c as catcher,
 			a.G_defense as Defense,
 			AVG(f.PO) as putouts_Average,
 			AVG(f.A) as Assists_Average,
@@ -199,21 +166,21 @@ select *  FROM
 			WHERE a.teamID = 'BOS' AND
 			a.G_c <> 0
 			GROUP BY p.nameGiven
-			ORDER BY a.G_cf DESC
+			ORDER BY a.G_c DESC
 			LIMIT 20
 			) as t1
-		ORDER BY errores_Average
+		ORDER BY errores_Average DESC
 		LIMIT 10
 		) as t2
-	ORDER BY putouts_Average
+	ORDER BY putouts_Average DESC
 	LIMIT 5
 	) as t3
-ORDER BY Assists_Average
+ORDER BY Assists_Average DESC
 LIMIT 3
 ```
 
 
-### First Base Man -> a.G_1b
+### 2. First Base Man -> a.G_1b
 
 ```SQL
 select *  FROM
@@ -222,8 +189,9 @@ select *  FROM
 	(
 		select *  FROM
 		(
-
-			SELECT p.nameGiven, 
+			SELECT 
+			p.nameGiven as Name_Given,
+            ap.yearID as Year, 
 			ap.awardID, 
 			a.G_1b as firstbaseman,
 			a.G_defense as Defense,
@@ -242,21 +210,21 @@ select *  FROM
 			WHERE a.teamID = 'BOS' AND
 			a.G_1b <> 0
 			GROUP BY p.nameGiven
-			ORDER BY a.G_cf DESC
+			ORDER BY a.G_1b DESC
 			LIMIT 20
 			) as t1
-		ORDER BY errores_Average
+		ORDER BY errores_Average DESC
 		LIMIT 10
 		) as t2
-	ORDER BY putouts_Average
+	ORDER BY putouts_Average DESC
 	LIMIT 5
 	) as t3
-ORDER BY Assists_Average
+ORDER BY Assists_Average DESC
 LIMIT 3
 ```
 
 
-### Second Base Man -> a.G_2b
+### 3. Second Base Man -> a.G_2b
 
 ```SQL
 select *  FROM
@@ -265,8 +233,9 @@ select *  FROM
 	(
 		select *  FROM
 		(
-
-			SELECT p.nameGiven, 
+			SELECT 
+			p.nameGiven as Name_Given,
+            ap.yearID as Year, 
 			ap.awardID, 
 			a.G_2b as secondbaseman,
 			a.G_defense as Defense,
@@ -285,21 +254,21 @@ select *  FROM
 			WHERE a.teamID = 'BOS' AND
 			a.G_2b <> 0
 			GROUP BY p.nameGiven
-			ORDER BY a.G_cf DESC
+			ORDER BY a.G_2b DESC
 			LIMIT 20
 			) as t1
-		ORDER BY errores_Average
+		ORDER BY errores_Average DESC
 		LIMIT 10
 		) as t2
-	ORDER BY putouts_Average
+	ORDER BY putouts_Average DESC
 	LIMIT 5
 	) as t3
-ORDER BY Assists_Average
+ORDER BY Assists_Average DESC
 LIMIT 3
 ```
 
 
-### Third Base Man
+### 4. Third Base Man
 
 ```SQL
 select *  FROM
@@ -308,8 +277,9 @@ select *  FROM
 	(
 		select *  FROM
 		(
-
-			SELECT p.nameGiven, 
+			SELECT 
+			p.nameGiven as Name_Given,
+            ap.yearID as Year, 
 			ap.awardID, 
 			a.G_3b as thirdbaseman,
 			a.G_defense as Defense,
@@ -328,21 +298,21 @@ select *  FROM
 			WHERE a.teamID = 'BOS' AND
 			a.G_3b <> 0
 			GROUP BY p.nameGiven
-			ORDER BY a.G_cf DESC
+			ORDER BY a.G_3b DESC
 			LIMIT 20
 			) as t1
-		ORDER BY errores_Average
+		ORDER BY errores_Average DESC
 		LIMIT 10
 		) as t2
-	ORDER BY putouts_Average
+	ORDER BY putouts_Average DESC
 	LIMIT 5
 	) as t3
-ORDER BY Assists_Average
+ORDER BY Assists_Average DESC
 LIMIT 3
 ```
 
 
-### Short Stop -> a.G_ss
+### 5. Short Stop -> a.G_ss
 
 ```SQL
 select *  FROM
@@ -351,8 +321,9 @@ select *  FROM
 	(
 		select *  FROM
 		(
-
-			SELECT p.nameGiven, 
+			SELECT 
+			p.nameGiven as Name_Given,
+            ap.yearID as Year, 
 			ap.awardID, 
 			a.G_ss as shortstop,
 			a.G_defense as Defense,
@@ -371,21 +342,21 @@ select *  FROM
 			WHERE a.teamID = 'BOS' AND
 			a.G_ss <> 0
 			GROUP BY p.nameGiven
-			ORDER BY a.G_cf DESC
+			ORDER BY a.G_ss DESC
 			LIMIT 20
 			) as t1
-		ORDER BY errores_Average
+		ORDER BY errores_Average DESC
 		LIMIT 10
 		) as t2
-	ORDER BY putouts_Average
+	ORDER BY putouts_Average DESC
 	LIMIT 5
 	) as t3
-ORDER BY Assists_Average
+ORDER BY Assists_Average DESC
 LIMIT 3
 ```
 
 
-### Left Fielder -> Left Fielder -> a.G_lf
+### 6. Left Fielder -> Left Fielder -> a.G_lf
 
 ```SQL
 select *  FROM
@@ -394,8 +365,9 @@ select *  FROM
 	(
 		select *  FROM
 		(
-
-			SELECT p.nameGiven, 
+			SELECT 
+			p.nameGiven as Name_Given,
+            ap.yearID as Year, 
 			ap.awardID, 
 			a.G_lf as leftfielder,
 			a.G_defense as Defense,
@@ -414,21 +386,21 @@ select *  FROM
 			WHERE a.teamID = 'BOS' AND
 			a.G_lf <> 0
 			GROUP BY p.nameGiven
-			ORDER BY a.G_cf DESC
+			ORDER BY a.G_lf DESC
 			LIMIT 20
 			) as t1
-		ORDER BY errores_Average
+		ORDER BY errores_Average DESC
 		LIMIT 10
 		) as t2
-	ORDER BY putouts_Average
+	ORDER BY putouts_Average DESC
 	LIMIT 5
 	) as t3
-ORDER BY Assists_Average
+ORDER BY Assists_Average DESC
 LIMIT 3
 ```
 
 
-### Center Fielder -> a.G_cf
+### 7. Center Fielder -> a.G_cf
 
 ```SQL
 select *  FROM
@@ -437,8 +409,9 @@ select *  FROM
 	(
 		select *  FROM
 		(
-
-			SELECT p.nameGiven, 
+			SELECT 
+			p.nameGiven as Name_Given,
+            ap.yearID as Year, 
 			ap.awardID, 
 			a.G_cf as centerfielder,
 			a.G_defense as Defense,
@@ -460,18 +433,18 @@ select *  FROM
 			ORDER BY a.G_cf DESC
 			LIMIT 20
 			) as t1
-		ORDER BY errores_Average
+		ORDER BY errores_Average DESC
 		LIMIT 10
 		) as t2
-	ORDER BY putouts_Average
+	ORDER BY putouts_Average DESC
 	LIMIT 5
 	) as t3
-ORDER BY Assists_Average
+ORDER BY Assists_Average DESC
 LIMIT 3
 ```
 
 
-### Right Fielder -> a.G_rf
+### 8. Right Fielder -> a.G_rf
 
 ```SQL
 select *  FROM
@@ -480,8 +453,9 @@ select *  FROM
 	(
 		select *  FROM
 		(
-
-			SELECT p.nameGiven, 
+			SELECT 
+			p.nameGiven as Name_Given,
+            ap.yearID as Year, 
 			ap.awardID, 
 			a.G_rf as rightfielder,
 			a.G_defense as Defense,
@@ -500,21 +474,21 @@ select *  FROM
 			WHERE a.teamID = 'BOS' AND
 			a.G_rf <> 0
 			GROUP BY p.nameGiven
-			ORDER BY a.G_cf DESC
+			ORDER BY a.G_rf DESC
 			LIMIT 20
 			) as t1
-		ORDER BY errores_Average
+		ORDER BY errores_Average DESC
 		LIMIT 10
 		) as t2
-	ORDER BY putouts_Average
+	ORDER BY putouts_Average DESC
 	LIMIT 5
 	) as t3
-ORDER BY Assists_Average
+ORDER BY Assists_Average DESC
 LIMIT 3
 ```
 
 
-### Out Fielder -> a.G_of
+### 9. Out Fielder -> a.G_of
 
 ```SQL
 select *  FROM
@@ -523,8 +497,9 @@ select *  FROM
 	(
 		select *  FROM
 		(
-
-			SELECT p.nameGiven, 
+			SELECT 
+			p.nameGiven as Name_Given,
+            ap.yearID as Year, 
 			ap.awardID, 
 			a.G_of as outfielder,
 			a.G_defense as Defense,
@@ -543,58 +518,15 @@ select *  FROM
 			WHERE a.teamID = 'BOS' AND
 			a.G_of <> 0
 			GROUP BY p.nameGiven
-			ORDER BY a.G_cf DESC
+			ORDER BY a.G_of DESC
 			LIMIT 20
 			) as t1
-		ORDER BY errores_Average
+		ORDER BY errores_Average DESC
 		LIMIT 10
 		) as t2
-	ORDER BY putouts_Average
+	ORDER BY putouts_Average DESC
 	LIMIT 5
 	) as t3
-ORDER BY Assists_Average
-LIMIT 3
-```
-
-
-### Out Fielder -> a.G_of
-
-```SQL
-select *  FROM
-(
-	select *  FROM
-	(
-		select *  FROM
-		(
-
-			SELECT p.nameGiven, 
-			ap.awardID, 
-			a.G_of as outfielder,
-			a.G_defense as Defense,
-			AVG(f.PO) as putouts_Average,
-			AVG(f.A) as Assists_Average,
-			AVG(f.E) as errores_Average
-			FROM appearances a
-			INNER JOIN people p
-			on a.playerID = p.playerID
-			inner join awardsplayers ap
-			on p.playerID = ap.playerID
-			INNER JOIN batting b
-			ON ap.playerID = b.playerID
-			INNER JOIN fielding f
-			on p.playerID = f.playerID
-			WHERE a.teamID = 'BOS' AND
-			a.G_of <> 0
-			GROUP BY p.nameGiven
-			ORDER BY a.G_cf DESC
-			LIMIT 20
-			) as t1
-		ORDER BY errores_Average
-		LIMIT 10
-		) as t2
-	ORDER BY putouts_Average
-	LIMIT 5
-	) as t3
-ORDER BY Assists_Average
+ORDER BY Assists_Average DESC
 LIMIT 3
 ```
