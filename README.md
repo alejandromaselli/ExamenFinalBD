@@ -124,3 +124,41 @@ Como el resultado del **`JOIN`** filtrado
 
 ![Tabla](https://github.com/alejandromaselli/ExamenFinalBD/blob/master/images/resul1.PNG)
 
+Debido a que vemos celdas en donde el valor es 0 lo que significa que hubieron juegos en los que obviamente el jugador no ejerció en determinada posición.
+
+Entonces hacemos un filtrado por posción
+
+#### Pitcher
+
+```SQL
+SELECT p.nameGiven, 
+ap.awardID, 
+a.G_p  as pitcher,
+a.G_c  as catcher,
+a.G_1b as firstbaseman,
+a.G_2b as secondbaseman,
+a.G_3b as thirdbaseman,
+a.G_ss as shortstop,
+a.G_lf as leftfielder,
+a.G_cf as centerfielder,
+a.G_rf as right_fielder,
+a.G_of as outfielder,
+a.G_dh as designated_hitter,
+a.G_ph as pinch_hitter,
+a.G_pr as pinch_runner,
+b.HR
+FROM appearances a
+INNER JOIN people p
+on a.playerID = p.playerID
+inner join awardsplayers ap
+on p.playerID = ap.playerID
+INNER JOIN batting b
+ON ap.playerID = b.playerID
+WHERE a.teamID = 'BOS' AND
+a.G_p <> 0
+```
+
+```SQL
+
+```
+
