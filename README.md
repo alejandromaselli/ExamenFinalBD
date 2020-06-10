@@ -126,9 +126,9 @@ Como el resultado del **`JOIN`** filtrado
 
 Debido a que vemos celdas en donde el valor es 0 lo que significa que hubieron juegos en los que obviamente el jugador no ejerció en determinada posición.
 
-Entonces hacemos un filtrado por posción
+Entonces hacemos un filtrado por posción donde el número sea diferente a `0` respecto a la posición
 
-#### Pitcher
+#### Pitcher -> a.G_p
 
 ```SQL
 SELECT p.nameGiven, 
@@ -157,8 +157,59 @@ ON ap.playerID = b.playerID
 WHERE a.teamID = 'BOS' AND
 a.G_p <> 0
 ```
+Vemos que sigue habiendo celdas con el numero `0` por lo que la *Query* la ajustaremos a cada posición
 
 ```SQL
-
+SELECT p.nameGiven, 
+ap.awardID, 
+a.G_p  as pitcher,
+b.HR
+FROM appearances a
+INNER JOIN people p
+on a.playerID = p.playerID
+inner join awardsplayers ap
+on p.playerID = ap.playerID
+INNER JOIN batting b
+ON ap.playerID = b.playerID
+WHERE a.teamID = 'BOS' AND
+a.G_p <> 0
 ```
+
+#### Catcher -> a.G_c
+
+```SQL
+SELECT p.nameGiven, 
+ap.awardID, 
+a.G_c  as catcher,
+b.HR
+FROM appearances a
+INNER JOIN people p
+on a.playerID = p.playerID
+inner join awardsplayers ap
+on p.playerID = ap.playerID
+INNER JOIN batting b
+ON ap.playerID = b.playerID
+WHERE a.teamID = 'BOS' AND
+a.G_c <> 0
+```
+
+#### FirstBaseMan -> a.G_1b
+
+```SQL
+SELECT p.nameGiven, 
+ap.awardID, 
+a.G_1b as firstbaseman,
+b.HR
+FROM appearances a
+INNER JOIN people p
+on a.playerID = p.playerID
+inner join awardsplayers ap
+on p.playerID = ap.playerID
+INNER JOIN batting b
+ON ap.playerID = b.playerID
+WHERE a.teamID = 'BOS' AND
+a.G_1b <> 0
+```
+
+#### SecondBaseMan
 
