@@ -93,44 +93,10 @@ WHERE a.teamID = 'BOS'
 
 Luego filtramos los tres **JOINS** completos teniendo en cuenta el `Name Given`,`pitcher`, `catcher`, `firstbaseman`, `secondbaseman`, `thirdbaseman`, `shortstop`, `leftfielder`, `centerfielder`, `right_fielder`, `outfielder`, `designated_hitter`, `pinch_hitter`, `pinch_runner`, `Home Runs`.
 
-```SQL
-SELECT p.nameGiven, 
-ap.awardID, 
-a.G_p  AS pitcher,
-a.G_c  AS catcher,
-a.G_1b AS firstbaseman,
-a.G_2b AS secondbaseman,
-a.G_3b AS thirdbaseman,
-a.G_ss AS shortstop,
-a.G_lf AS leftfielder,
-a.G_cf AS centerfielder,
-a.G_rf AS right_fielder,
-a.G_of AS outfielder,
-a.G_dh AS designated_hitter,
-a.G_ph AS pinch_hitter,
-a.G_pr AS pinch_runner,
-b.HR
-FROM appearances a
-INNER JOIN people p
-ON a.playerID = p.playerID
-inner join awardsplayers ap
-on p.playerID = ap.playerID
-INNER JOIN batting b
-ON ap.playerID = b.playerID
-WHERE a.teamID = 'BOS'
-```
-
-Como el resultado del **`JOIN`** filtrado
-
-![Tabla](https://github.com/alejandromaselli/ExamenFinalBD/blob/master/images/resul1.PNG)
-
-Debido a que vemos celdas en donde el valor es 0 lo que significa que hubieron juegos en los que obviamente el jugador no ejerció en determinada posición.
-
-Entonces hacemos un filtrado por posción donde el número sea diferente a `0` respecto a la posición
-
 #### Pitcher -> a.G_p
 
 ```SQL
+
 SELECT p.nameGiven, 
 ap.awardID, 
 a.G_p  as pitcher,
@@ -146,7 +112,8 @@ a.G_of as outfielder,
 a.G_dh as designated_hitter,
 a.G_ph as pinch_hitter,
 a.G_pr as pinch_runner,
-b.HR
+b.HR,
+f.PO
 FROM appearances a
 INNER JOIN people p
 on a.playerID = p.playerID
@@ -156,202 +123,478 @@ INNER JOIN batting b
 ON ap.playerID = b.playerID
 WHERE a.teamID = 'BOS' AND
 a.G_p <> 0
+GROUP BY p.nameGiven
+			
 ```
+
 Vemos que sigue habiendo celdas con el numero `0` por lo que la *Query* la ajustaremos a cada posición
 
 ```SQL
-SELECT p.nameGiven, 
-ap.awardID, 
-a.G_p  as pitcher,
-b.HR
-FROM appearances a
-INNER JOIN people p
-on a.playerID = p.playerID
-inner join awardsplayers ap
-on p.playerID = ap.playerID
-INNER JOIN batting b
-ON ap.playerID = b.playerID
-WHERE a.teamID = 'BOS' AND
-a.G_p <> 0
+select *  FROM
+(
+	select *  FROM
+	(
+		select *  FROM
+		(
+
+			SELECT p.nameGiven, 
+			ap.awardID, 
+			a.G_p  as pitcher,
+			a.G_defense as Defense,
+			AVG(f.PO) as putouts_Average,
+			AVG(f.A) as Assists_Average,
+			AVG(f.E) as errores_Average
+			FROM appearances a
+			INNER JOIN people p
+			on a.playerID = p.playerID
+			inner join awardsplayers ap
+			on p.playerID = ap.playerID
+			INNER JOIN batting b
+			ON ap.playerID = b.playerID
+			INNER JOIN fielding f
+			on p.playerID = f.playerID
+			WHERE a.teamID = 'BOS' AND
+			a.G_p <> 0
+			GROUP BY p.nameGiven
+			ORDER BY a.G_cf DESC
+			LIMIT 20
+			) as t1
+		ORDER BY errores_Average
+		LIMIT 10
+		) as t2
+	ORDER BY putouts_Average
+	LIMIT 5
+	) as t3
+ORDER BY Assists_Average
+LIMIT 3
 ```
+
 
 ### Catcher -> a.G_c
 
 ```SQL
-SELECT p.nameGiven, 
-ap.awardID, 
-a.G_c  as catcher,
-b.HR
-FROM appearances a
-INNER JOIN people p
-on a.playerID = p.playerID
-inner join awardsplayers ap
-on p.playerID = ap.playerID
-INNER JOIN batting b
-ON ap.playerID = b.playerID
-WHERE a.teamID = 'BOS' AND
-a.G_c <> 0
+select *  FROM
+(
+	select *  FROM
+	(
+		select *  FROM
+		(
+
+			SELECT p.nameGiven, 
+			ap.awardID, 
+			a.G_c  as catcher,
+			a.G_defense as Defense,
+			AVG(f.PO) as putouts_Average,
+			AVG(f.A) as Assists_Average,
+			AVG(f.E) as errores_Average
+			FROM appearances a
+			INNER JOIN people p
+			on a.playerID = p.playerID
+			inner join awardsplayers ap
+			on p.playerID = ap.playerID
+			INNER JOIN batting b
+			ON ap.playerID = b.playerID
+			INNER JOIN fielding f
+			on p.playerID = f.playerID
+			WHERE a.teamID = 'BOS' AND
+			a.G_c <> 0
+			GROUP BY p.nameGiven
+			ORDER BY a.G_cf DESC
+			LIMIT 20
+			) as t1
+		ORDER BY errores_Average
+		LIMIT 10
+		) as t2
+	ORDER BY putouts_Average
+	LIMIT 5
+	) as t3
+ORDER BY Assists_Average
+LIMIT 3
 ```
+
 
 ### First Base Man -> a.G_1b
 
 ```SQL
-SELECT p.nameGiven, 
-ap.awardID, 
-a.G_1b as firstbaseman,
-b.HR
-FROM appearances a
-INNER JOIN people p
-on a.playerID = p.playerID
-inner join awardsplayers ap
-on p.playerID = ap.playerID
-INNER JOIN batting b
-ON ap.playerID = b.playerID
-WHERE a.teamID = 'BOS' AND
-a.G_1b <> 0
+select *  FROM
+(
+	select *  FROM
+	(
+		select *  FROM
+		(
+
+			SELECT p.nameGiven, 
+			ap.awardID, 
+			a.G_1b as firstbaseman,
+			a.G_defense as Defense,
+			AVG(f.PO) as putouts_Average,
+			AVG(f.A) as Assists_Average,
+			AVG(f.E) as errores_Average
+			FROM appearances a
+			INNER JOIN people p
+			on a.playerID = p.playerID
+			inner join awardsplayers ap
+			on p.playerID = ap.playerID
+			INNER JOIN batting b
+			ON ap.playerID = b.playerID
+			INNER JOIN fielding f
+			on p.playerID = f.playerID
+			WHERE a.teamID = 'BOS' AND
+			a.G_1b <> 0
+			GROUP BY p.nameGiven
+			ORDER BY a.G_cf DESC
+			LIMIT 20
+			) as t1
+		ORDER BY errores_Average
+		LIMIT 10
+		) as t2
+	ORDER BY putouts_Average
+	LIMIT 5
+	) as t3
+ORDER BY Assists_Average
+LIMIT 3
 ```
+
 
 ### Second Base Man -> a.G_2b
 
 ```SQL
-SELECT p.nameGiven, 
-ap.awardID, 
-a.G_2b as secondbaseman,
-b.HR
-FROM appearances a
-INNER JOIN people p
-on a.playerID = p.playerID
-inner join awardsplayers ap
-on p.playerID = ap.playerID
-INNER JOIN batting b
-ON ap.playerID = b.playerID
-WHERE a.teamID = 'BOS' AND
-a.G_2b <> 0
+select *  FROM
+(
+	select *  FROM
+	(
+		select *  FROM
+		(
+
+			SELECT p.nameGiven, 
+			ap.awardID, 
+			a.G_2b as secondbaseman,
+			a.G_defense as Defense,
+			AVG(f.PO) as putouts_Average,
+			AVG(f.A) as Assists_Average,
+			AVG(f.E) as errores_Average
+			FROM appearances a
+			INNER JOIN people p
+			on a.playerID = p.playerID
+			inner join awardsplayers ap
+			on p.playerID = ap.playerID
+			INNER JOIN batting b
+			ON ap.playerID = b.playerID
+			INNER JOIN fielding f
+			on p.playerID = f.playerID
+			WHERE a.teamID = 'BOS' AND
+			a.G_2b <> 0
+			GROUP BY p.nameGiven
+			ORDER BY a.G_cf DESC
+			LIMIT 20
+			) as t1
+		ORDER BY errores_Average
+		LIMIT 10
+		) as t2
+	ORDER BY putouts_Average
+	LIMIT 5
+	) as t3
+ORDER BY Assists_Average
+LIMIT 3
 ```
+
 
 ### Third Base Man
 
 ```SQL
-SELECT p.nameGiven, 
-ap.awardID, 
-a.G_3b as thirdbaseman,
-b.HR
-FROM appearances a
-INNER JOIN people p
-on a.playerID = p.playerID
-inner join awardsplayers ap
-on p.playerID = ap.playerID
-INNER JOIN batting b
-ON ap.playerID = b.playerID
-WHERE a.teamID = 'BOS' AND
-a.G_3b <> 0
+select *  FROM
+(
+	select *  FROM
+	(
+		select *  FROM
+		(
+
+			SELECT p.nameGiven, 
+			ap.awardID, 
+			a.G_3b as thirdbaseman,
+			a.G_defense as Defense,
+			AVG(f.PO) as putouts_Average,
+			AVG(f.A) as Assists_Average,
+			AVG(f.E) as errores_Average
+			FROM appearances a
+			INNER JOIN people p
+			on a.playerID = p.playerID
+			inner join awardsplayers ap
+			on p.playerID = ap.playerID
+			INNER JOIN batting b
+			ON ap.playerID = b.playerID
+			INNER JOIN fielding f
+			on p.playerID = f.playerID
+			WHERE a.teamID = 'BOS' AND
+			a.G_3b <> 0
+			GROUP BY p.nameGiven
+			ORDER BY a.G_cf DESC
+			LIMIT 20
+			) as t1
+		ORDER BY errores_Average
+		LIMIT 10
+		) as t2
+	ORDER BY putouts_Average
+	LIMIT 5
+	) as t3
+ORDER BY Assists_Average
+LIMIT 3
 ```
+
 
 ### Short Stop -> a.G_ss
 
 ```SQL
-SELECT p.nameGiven, 
-ap.awardID, 
-a.G_ss as shortstop,
-b.HR
-FROM appearances a
-INNER JOIN people p
-on a.playerID = p.playerID
-inner join awardsplayers ap
-on p.playerID = ap.playerID
-INNER JOIN batting b
-ON ap.playerID = b.playerID
-WHERE a.teamID = 'BOS' AND
-a.G_ss <> 0
+select *  FROM
+(
+	select *  FROM
+	(
+		select *  FROM
+		(
+
+			SELECT p.nameGiven, 
+			ap.awardID, 
+			a.G_ss as shortstop,
+			a.G_defense as Defense,
+			AVG(f.PO) as putouts_Average,
+			AVG(f.A) as Assists_Average,
+			AVG(f.E) as errores_Average
+			FROM appearances a
+			INNER JOIN people p
+			on a.playerID = p.playerID
+			inner join awardsplayers ap
+			on p.playerID = ap.playerID
+			INNER JOIN batting b
+			ON ap.playerID = b.playerID
+			INNER JOIN fielding f
+			on p.playerID = f.playerID
+			WHERE a.teamID = 'BOS' AND
+			a.G_ss <> 0
+			GROUP BY p.nameGiven
+			ORDER BY a.G_cf DESC
+			LIMIT 20
+			) as t1
+		ORDER BY errores_Average
+		LIMIT 10
+		) as t2
+	ORDER BY putouts_Average
+	LIMIT 5
+	) as t3
+ORDER BY Assists_Average
+LIMIT 3
 ```
+
 
 ### Left Fielder -> Left Fielder -> a.G_lf
 
 ```SQL
-SELECT p.nameGiven, 
-ap.awardID, 
-a.G_lf as leftfielder,
-b.HR
-FROM appearances a
-INNER JOIN people p
-on a.playerID = p.playerID
-inner join awardsplayers ap
-on p.playerID = ap.playerID
-INNER JOIN batting b
-ON ap.playerID = b.playerID
-WHERE a.teamID = 'BOS' AND
-a.G_lf <> 0
+select *  FROM
+(
+	select *  FROM
+	(
+		select *  FROM
+		(
+
+			SELECT p.nameGiven, 
+			ap.awardID, 
+			a.G_lf as leftfielder,
+			a.G_defense as Defense,
+			AVG(f.PO) as putouts_Average,
+			AVG(f.A) as Assists_Average,
+			AVG(f.E) as errores_Average
+			FROM appearances a
+			INNER JOIN people p
+			on a.playerID = p.playerID
+			inner join awardsplayers ap
+			on p.playerID = ap.playerID
+			INNER JOIN batting b
+			ON ap.playerID = b.playerID
+			INNER JOIN fielding f
+			on p.playerID = f.playerID
+			WHERE a.teamID = 'BOS' AND
+			a.G_lf <> 0
+			GROUP BY p.nameGiven
+			ORDER BY a.G_cf DESC
+			LIMIT 20
+			) as t1
+		ORDER BY errores_Average
+		LIMIT 10
+		) as t2
+	ORDER BY putouts_Average
+	LIMIT 5
+	) as t3
+ORDER BY Assists_Average
+LIMIT 3
 ```
+
 
 ### Center Fielder -> a.G_cf
 
 ```SQL
-SELECT p.nameGiven, 
-ap.awardID, 
-a.G_cf as centerfielder,
-b.HR
-FROM appearances a
-INNER JOIN people p
-on a.playerID = p.playerID
-inner join awardsplayers ap
-on p.playerID = ap.playerID
-INNER JOIN batting b
-ON ap.playerID = b.playerID
-WHERE a.teamID = 'BOS' AND
-a.G_cf <> 0
+select *  FROM
+(
+	select *  FROM
+	(
+		select *  FROM
+		(
+
+			SELECT p.nameGiven, 
+			ap.awardID, 
+			a.G_cf as centerfielder,
+			a.G_defense as Defense,
+			AVG(f.PO) as putouts_Average,
+			AVG(f.A) as Assists_Average,
+			AVG(f.E) as errores_Average
+			FROM appearances a
+			INNER JOIN people p
+			on a.playerID = p.playerID
+			inner join awardsplayers ap
+			on p.playerID = ap.playerID
+			INNER JOIN batting b
+			ON ap.playerID = b.playerID
+			INNER JOIN fielding f
+			on p.playerID = f.playerID
+			WHERE a.teamID = 'BOS' AND
+			a.G_cf <> 0
+			GROUP BY p.nameGiven
+			ORDER BY a.G_cf DESC
+			LIMIT 20
+			) as t1
+		ORDER BY errores_Average
+		LIMIT 10
+		) as t2
+	ORDER BY putouts_Average
+	LIMIT 5
+	) as t3
+ORDER BY Assists_Average
+LIMIT 3
 ```
+
 
 ### Right Fielder -> a.G_rf
 
 ```SQL
-SELECT p.nameGiven, 
-ap.awardID, 
-a.G_rf as rightfielder,
-b.HR
-FROM appearances a
-INNER JOIN people p
-on a.playerID = p.playerID
-inner join awardsplayers ap
-on p.playerID = ap.playerID
-INNER JOIN batting b
-ON ap.playerID = b.playerID
-WHERE a.teamID = 'BOS' AND
-a.G_rf <> 0
+select *  FROM
+(
+	select *  FROM
+	(
+		select *  FROM
+		(
+
+			SELECT p.nameGiven, 
+			ap.awardID, 
+			a.G_rf as rightfielder,
+			a.G_defense as Defense,
+			AVG(f.PO) as putouts_Average,
+			AVG(f.A) as Assists_Average,
+			AVG(f.E) as errores_Average
+			FROM appearances a
+			INNER JOIN people p
+			on a.playerID = p.playerID
+			inner join awardsplayers ap
+			on p.playerID = ap.playerID
+			INNER JOIN batting b
+			ON ap.playerID = b.playerID
+			INNER JOIN fielding f
+			on p.playerID = f.playerID
+			WHERE a.teamID = 'BOS' AND
+			a.G_rf <> 0
+			GROUP BY p.nameGiven
+			ORDER BY a.G_cf DESC
+			LIMIT 20
+			) as t1
+		ORDER BY errores_Average
+		LIMIT 10
+		) as t2
+	ORDER BY putouts_Average
+	LIMIT 5
+	) as t3
+ORDER BY Assists_Average
+LIMIT 3
 ```
+
 
 ### Out Fielder -> a.G_of
 
 ```SQL
-SELECT p.nameGiven, 
-ap.awardID, 
-a.G_of as outfielder,
-b.HR
-FROM appearances a
-INNER JOIN people p
-on a.playerID = p.playerID
-inner join awardsplayers ap
-on p.playerID = ap.playerID
-INNER JOIN batting b
-ON ap.playerID = b.playerID
-WHERE a.teamID = 'BOS' AND
-a.G_of <> 0
+select *  FROM
+(
+	select *  FROM
+	(
+		select *  FROM
+		(
+
+			SELECT p.nameGiven, 
+			ap.awardID, 
+			a.G_of as outfielder,
+			a.G_defense as Defense,
+			AVG(f.PO) as putouts_Average,
+			AVG(f.A) as Assists_Average,
+			AVG(f.E) as errores_Average
+			FROM appearances a
+			INNER JOIN people p
+			on a.playerID = p.playerID
+			inner join awardsplayers ap
+			on p.playerID = ap.playerID
+			INNER JOIN batting b
+			ON ap.playerID = b.playerID
+			INNER JOIN fielding f
+			on p.playerID = f.playerID
+			WHERE a.teamID = 'BOS' AND
+			a.G_of <> 0
+			GROUP BY p.nameGiven
+			ORDER BY a.G_cf DESC
+			LIMIT 20
+			) as t1
+		ORDER BY errores_Average
+		LIMIT 10
+		) as t2
+	ORDER BY putouts_Average
+	LIMIT 5
+	) as t3
+ORDER BY Assists_Average
+LIMIT 3
 ```
+
 
 ### Out Fielder -> a.G_of
 
 ```SQL
-SELECT p.nameGiven, 
-ap.awardID, 
-a.G_of as outfielder,
-b.HR
-FROM appearances a
-INNER JOIN people p
-on a.playerID = p.playerID
-inner join awardsplayers ap
-on p.playerID = ap.playerID
-INNER JOIN batting b
-ON ap.playerID = b.playerID
-WHERE a.teamID = 'BOS' AND
-a.G_of <> 0
-```
+select *  FROM
+(
+	select *  FROM
+	(
+		select *  FROM
+		(
 
+			SELECT p.nameGiven, 
+			ap.awardID, 
+			a.G_of as outfielder,
+			a.G_defense as Defense,
+			AVG(f.PO) as putouts_Average,
+			AVG(f.A) as Assists_Average,
+			AVG(f.E) as errores_Average
+			FROM appearances a
+			INNER JOIN people p
+			on a.playerID = p.playerID
+			inner join awardsplayers ap
+			on p.playerID = ap.playerID
+			INNER JOIN batting b
+			ON ap.playerID = b.playerID
+			INNER JOIN fielding f
+			on p.playerID = f.playerID
+			WHERE a.teamID = 'BOS' AND
+			a.G_of <> 0
+			GROUP BY p.nameGiven
+			ORDER BY a.G_cf DESC
+			LIMIT 20
+			) as t1
+		ORDER BY errores_Average
+		LIMIT 10
+		) as t2
+	ORDER BY putouts_Average
+	LIMIT 5
+	) as t3
+ORDER BY Assists_Average
+LIMIT 3
+```
