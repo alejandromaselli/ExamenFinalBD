@@ -1,5 +1,4 @@
-# Análisis de los jugadores más idóneos por posición
-
+# ANÁLISIS DE LOS TRES JUGADORES MÁS IDÓNEOS POR POSICIÓN
 ## Equipo a evaluar:
 
 ### Boston Red Sox
