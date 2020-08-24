@@ -29,6 +29,10 @@ We can see that the teamID is **BOS**
 
 Usamos la tabla `Appereances` como la palabra lo indica son "Apariciones" y esta tabla nos dice la posición en la que juega el jugador en diferentes posiciones con los siguientes campos:
 
+
+
+
+
 | G_p | G_c | G_1b | G_2b | G_3b | G_ss | G_lf | G_cf | G_rf | G_of|           
 | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |		
 |Games as pitcher|Games as catcher|Games as firstbaseman|Games as secondbaseman|Games as thirdbaseman|Games as shortstop|Games as leftfielder|Games as centerfielder|Games as right fielder|Games as outfielder|
