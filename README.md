@@ -1,22 +1,22 @@
-# ANÁLISIS DE LOS TRES JUGADORES MÁS IDÓNEOS POR POSICIÓN
-## Equipo a evaluar:
+# ANALYSIS OF THE THREE MOST SUITABLE PLAYERS PER POSITION
+## Team to be evaluated:
 
 ### Boston Red Sox
 
 Posiciones:
-- 1 Lanzador (Pitcher)
-- 2 Receptor (Catcher)
-- 3 Primera base (First baseman)
-- 4 Segunda base (Second baseman)
-- 5 Tercera base (Third baseman)
-- 6 Campocorto o parador en corto (Short stop)
-- 7 Jardinero izquierdo (Left fielder)
-- 8 Jardinero central (Center fielder)
-- 9 Jardinero derecho (Right fielder)
+-Pitcher
+-Catcher
+-First baseman
+-Second baseman
+-Third baseman
+-Short stop
+-Left fielder
+-Center fielder
+-Right fielder
 
 ![posiciones](https://github.com/alejandromaselli/ExamenFinalBD/blob/master/images/Baseball_positions.svg)
 
-Primero Filtrar los equipos para poder identificar el teamID del equipo deseado
+First Filter the teams to be able to identify the teamID of the desired team
 
 ```SQL
 SELECT * FROM `teams` where name LIKE 'Boston%' and name LIKE '%Sox';
@@ -25,7 +25,7 @@ SELECT * FROM `teams` where name LIKE 'Boston%' and name LIKE '%Sox';
 
 SELECT teamID FROM `teams` where name LIKE 'Boston%' and name LIKE '%Sox';
 ```
-Podemos ver que el teamID es **BOS**
+We can see that the teamID is **BOS**
 
 Usamos la tabla `Appereances` como la palabra lo indica son "Apariciones" y esta tabla nos dice la posición en la que juega el jugador en diferentes posiciones con los siguientes campos:
 
@@ -36,7 +36,7 @@ Usamos la tabla `Appereances` como la palabra lo indica son "Apariciones" y esta
 ```SQL
 SELECT * FROM Appereances;
 ```
-Haremos un **`JOIN`** con la tabla people para obtener información del jugador cono su "Nombre Dado" o **Name Given**
+We will make a **`JOIN`** with the people table to get information about the player with his **Name Given**.
 
 ```SQL
 SELECT * FROM appearances a
@@ -44,7 +44,7 @@ INNER JOIN people p
 ON a.playerID = p.playerID
 ```
 
-Luego filtraremos los jugadores y añadiremos la cláusula `WHERE` y como condicional tiene que resultar todos los registros relacionados a nuestro equipo  con el `teamID = 'BOS'` y le añadimos alias a las dos tablas para poder manipularlas mejor enel futuro.
+Then we will filter the players and add the `WHERE` clause and as a conditional it has to be all the records related to our team with the `teamID = 'BOS'` and we add aliases to the two tables to be able to manipulate them better in the future.
 
 ```SQL
 SELECT * FROM appearances a
@@ -53,13 +53,13 @@ ON a.playerID = p.playerID
 WHERE teamID = 'BOS'
 ```
 
-Cabe destacar que para ello debemos irnos a la tabla `AwardsPlayer` ya que esta registra los premios que han ganado los mejores jugadores a lo largo de la historia
+It should be noted that for this we must go to the table 'AwardsPlayer' as it records the awards that have won the best players throughout history
 
 ```SQL
 SELECT * FROM AwardsPlayer;
 ```
 
-Luego con el **`JOIN`** anterior  añadimos un nuevo **JOIN** con la tabla `AwardsPlayer` le añadimos su respectivo alias y entonces obtenemos los jugadores con premio de nuestro equipo.
+Then with the previous **`JOIN`** we add a new **JOIN** with the table `AwardsPlayer` we add their respective alias and then we get the prize players of our team.
 
 ```SQL
 SELECT * FROM appearances a
@@ -70,13 +70,13 @@ on p.playerID = ap.playerID
 WHERE a.teamID = 'BOS'
 ```
 
-Añadimos un **`JOIN`** con la tabla `Batting` donde tenemos estos campos:
+We add a **`JOIN`** with the `Batting` table where we have these fields:
 
 | playerID| yearID|
 | ---- | ---- |
 | Player ID code | Year|
 
-**JOIN *resultante:***
+**JOIN *result:***
 
 ```SQL
 SELECT * FROM
@@ -90,7 +90,10 @@ ON ap.playerID = b.playerID
 WHERE a.teamID = 'BOS'
 ```
 
-Luego filtramos los tres **JOINS** completos teniendo en cuenta el `Name Given`,`pitcher`, `catcher`, `firstbaseman`, `secondbaseman`, `thirdbaseman`, `shortstop`, `leftfielder`, `centerfielder`, `right_fielder`, `outfielder`, `designated_hitter`, `pinch_hitter`, `pinch_runner`, `Home Runs`.
+Then we filter the three complete **JOINS** taking into account the `Name Given`,`pitcher`, `catcher`, `firstbaseman`, `secondbaseman`, `thirdbaseman`, `shortstop`, `leftfielder`, `centerfielder`, `right_fielder`, `outfielder`, `designated_hitter`, `pinch_hitter`, `pinch_runner`, `Home Runs`.
+
+Also we'll take some other fields in the join such as the defense, putouts, Assistances, errors, batting. The purpose of these fields is to make an average. The ideal player will have a lower average of errors, relatively a higher average of assistances, and higher average of putouts. Finally we would filter three times all the resulting query to get the best 3 players for each position:
+
 
 ### 1. Catcher -> a.G_c
 
